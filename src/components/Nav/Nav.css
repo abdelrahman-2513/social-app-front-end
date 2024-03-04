@@ -1,0 +1,116 @@
+nav {
+  width: 100%;
+  height: 3.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  background: var(--color-card);
+}
+.nav-container {
+  width: 96%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+.nav-container .logo {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+.nav-container a {
+  text-decoration: none;
+}
+.nav-container svg {
+  color: var(--color-primary);
+}
+.nav-container svg:hover {
+  color: var(--color-border);
+}
+.nav-container .nav-left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+.nav-searchBar {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.nav-searchBar input {
+  border: transparent;
+  background: transparent;
+  text-transform: capitalize;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+  font-size: 1rem;
+  outline: 0;
+}
+.nav-searchBar input::placeholder {
+  color: var(--color-primary);
+}
+
+.nav-container .nav-right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.nav-right .nav-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.nav-user img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.nav-user h4 {
+  color: var(--color-primary);
+}
+
+@media (max-width: 600px) {
+  .nav-container {
+    width: 100%;
+    gap: 10px;
+  }
+  .nav-container .logo {
+    font-size: 1rem;
+  }
+  .nav-container .nav-left {
+    padding-left: 0.3rem;
+    flex: 2;
+    gap: 10px;
+  }
+  .nav-searchBar {
+    padding: 0;
+    border: none;
+    gap: 2px;
+  }
+  .nav-searchBar input {
+    font-size: 0.7rem;
+  }
+  .nav-container svg,
+  .nav-user img {
+    width: 25px;
+    height: 25px;
+  }
+  .nav-right .nav-user {
+    display: none;
+  }
+}

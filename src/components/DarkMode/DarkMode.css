@@ -1,0 +1,8 @@
+.dark-mode-lamp {
+  transition: 0.3s ease;
+  color: var(--color-primary);
+}
+.dark-mode-lamp:hover {
+  color: var(--color-soft);
+  transition: 0.3s ease;
+}

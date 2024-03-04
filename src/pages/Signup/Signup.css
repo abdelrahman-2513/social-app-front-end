@@ -1,0 +1,77 @@
+.signup {
+  background: var(--color-primary);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signup .card {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 580px;
+  background: var(--color-primary);
+  border: 1px solid white;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+.signup .card .left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 40px;
+  background: white;
+  align-items: center;
+}
+.signup .card span {
+  color: var(--color-primary);
+}
+.signup .card p {
+  font-size: 0.9rem;
+}
+.signup .card h2 {
+  color: var(--color-primary);
+}
+.signup .card .right {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.signup .card .right input {
+  border: transparent;
+  background: transparent;
+  font-size: 0.9rem;
+  outline: none;
+  border-bottom: 1px solid white;
+  padding: 0.6rem;
+  color: white;
+  margin: 0 auto;
+  width: 100%;
+  text-transform: capitalize;
+}
+.signup .card .right input::placeholder {
+  color: white;
+}
+.signup form {
+  color: white;
+}
+.signup form .btn {
+  color: var(--color-primary);
+  margin-top: 1.7rem;
+}
+
+@media (max-width: 600px) {
+  .signup .card {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
