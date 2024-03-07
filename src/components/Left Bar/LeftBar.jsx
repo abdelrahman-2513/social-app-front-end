@@ -1,4 +1,14 @@
-import { Film, Picture, Users } from "react-flaticons";
+import {
+  ChartArea,
+  ChatArrowDown,
+  Film,
+  Inbox,
+  MessageCode,
+  Picture,
+  Text,
+  TextCheck,
+  Users,
+} from "react-flaticons";
 import { Link } from "react-router-dom";
 import "./LeftBar.css";
 
@@ -55,6 +65,12 @@ function LeftBar() {
             <div className="nav-item">
               <Film />
               <h4>Vedios</h4>
+            </div>
+          </Link>
+          <Link to="/myVedios">
+            <div className="nav-item">
+              <Text />
+              <h4>Message</h4>
             </div>
           </Link>
         </div>

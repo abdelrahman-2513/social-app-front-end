@@ -10,6 +10,7 @@
           "width: fit-content"
         ]
       }
-    ]
+    ],
+    "css-prefix-order": "off"
   }
 }

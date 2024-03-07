@@ -1,0 +1,29 @@
+.commment-container {
+  background: var(--color-bg);
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  border-radius: 0.8rem;
+}
+.commment-container .comment-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.commment-container .comment-form input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: var(--color-soft);
+  border-radius: 0.8rem;
+  border: 1px solid var(--color-border);
+}
+.commment-container .comments {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

@@ -77,7 +77,21 @@ p {
 }
 main {
   display: grid;
-  grid-template-columns: 20% 54% 20%;
+  grid-template-columns: 18% 54% 23%;
   gap: 3%;
   width: 100%;
+  overflow-x: hidden;
+}
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: 8% 56% 32%;
+  }
+}
+@media (max-width: 786px) {
+  main {
+    grid-template-columns: 100% 0% 0%;
+  }
+  .container {
+    width: 100%;
+  }
 }

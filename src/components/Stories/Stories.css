@@ -1,0 +1,107 @@
+.stories {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  gap: 10px;
+  width: 100%;
+}
+.stories .story,
+.myStory {
+  position: relative;
+  height: 200px;
+  flex: 1;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  border-radius: 0.4rem;
+  opacity: 0.8;
+  max-width: 200px;
+}
+.myStory {
+  display: flex;
+}
+
+.stories .story::after,
+.myStory::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(transparent, transparent, var(--color-primary));
+}
+.story:hover,
+.myStory:hover {
+  opacity: 1;
+}
+.story .user {
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px dashed var(--color-primary);
+  margin-top: 5px;
+  margin-left: 10px;
+  overflow: hidden;
+}
+.story > img {
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+.story .user img {
+  height: 30px;
+  width: 30px;
+}
+.story h4 {
+  position: absolute;
+  color: white;
+  z-index: 1;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  bottom: 2px;
+}
+
+.userStory label {
+  position: absolute;
+  color: white;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  text-align: center;
+  background: var(--color-primary);
+  display: flex;
+  padding: 7px;
+  border-radius: 50%;
+}
+.userStory {
+  margin-right: 10px;
+  opacity: 1 !important;
+}
+
+.userStory input {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .stories {
+    height: 60px !important;
+    gap: 5px;
+  }
+  .story {
+    display: flex;
+    height: 100% !important;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 50%;
+    /* width: 60px; */
+  }
+  .story .user {
+    display: none;
+  }
+  .story h4 {
+    display: none;
+  }
+}

@@ -1,0 +1,32 @@
+.RightBar {
+  position: sticky;
+  /* top: 3.6rem; */
+  height: calc(100vh - 3.6rem);
+  overflow: auto;
+}
+/* .RightBar a {
+  text-decoration: none;
+}
+.RightBar svg:hover {
+  color: var(--color-border);
+}
+.RightBar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+} */
+.RightBar::-webkit-scrollbar {
+  display: none;
+}
+.RightBar .rightBar-container {
+  width: 80%;
+  height: 100%;
+  gap: 15px;
+  margin: 0 auto;
+}
+
+@media (max-width: 786px) {
+  .RightBar {
+    display: none;
+  }
+}

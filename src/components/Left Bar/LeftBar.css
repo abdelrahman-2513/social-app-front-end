@@ -1,6 +1,6 @@
 .left-bar {
   position: sticky;
-  top: 3.6rem;
+  /* top: 3.6rem; */
   height: calc(100vh - 3.6rem);
   background: var(--color-card);
   overflow: auto;
@@ -72,7 +72,7 @@
     display: none;
   }
 }
-@media (max-width: 920px) {
+@media (max-width: 786px) {
   .left-bar {
     display: none;
   }

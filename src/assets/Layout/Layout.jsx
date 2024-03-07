@@ -41,6 +41,10 @@ function Layout() {
           element: <Profile />,
         },
         {
+          path: "/profile/:id",
+          element: <Profile />,
+        },
+        {
           path: "/ChatBox",
           element: <ChatBox />,
         },

@@ -1,0 +1,47 @@
+.friend-requests {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.requests {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.request {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--color-card);
+  padding: 1rem;
+  border-radius: 0.8rem;
+}
+.request .user-info {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+}
+.requests a {
+  text-decoration: none;
+}
+.request img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.request .btns {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .request .btns {
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+  }
+}

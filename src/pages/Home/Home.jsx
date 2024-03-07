@@ -1,10 +1,14 @@
-import { Home as House } from "react-flaticons";
+import AddPost from "../../components/AddPost/AddPost";
+import Feeds from "../../components/Feed/Feeds";
+import Stories from "../../components/Stories/Stories";
+
 function Home() {
   return (
-    <div>
-      Home
-      <House />
-    </div>
+    <>
+      <Stories />
+      <AddPost />
+      <Feeds />
+    </>
   );
 }
 
