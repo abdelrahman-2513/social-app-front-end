@@ -8,6 +8,7 @@ import RightBar from "../../components/Right Bar/RightBar";
 import Nav from "../../components/Nav/Nav";
 import Profile from "../../pages/Profile/Prfile";
 import ChatBox from "../../pages/Chat Box/ChatBox";
+import UserProfile from "../../components/UserProfile/UserProfile";
 
 function Layout() {
   // feed-------------------------------
@@ -46,6 +47,10 @@ function Layout() {
         },
         {
           path: "/ChatBox",
+          element: <ChatBox />,
+        },
+        {
+          path: "/ChatBox/:id",
           element: <ChatBox />,
         },
       ],

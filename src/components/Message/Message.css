@@ -85,6 +85,13 @@
 .message .message-data p {
   font-size: 0.8rem;
 }
+.message .btn-red {
+  cursor: pointer;
+  border: 0px;
+  border-radius: 50%;
+  font-weight: bold;
+  padding: 0.7rem;
+}
 @media (max-width: 1024px) {
   .message-top,
   .message-searchBar {
