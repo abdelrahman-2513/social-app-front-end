@@ -2,8 +2,11 @@ import "./Nav.css";
 import { Envelope, Home, Search, User } from "react-flaticons";
 import { Link } from "react-router-dom";
 import DarkMode from "../DarkMode/DarkMode";
+import { useUser } from "../../providers/user.context";
 
 function Nav() {
+  const { state } = useUser();
+  console.log(state);
   return (
     <nav>
       <div className="nav-container">
@@ -29,7 +32,7 @@ function Nav() {
           <DarkMode />
           <div className="nav-user">
             <img src="./vite.svg" alt="icon" />
-            <h4 className="user-name">Abdelrahman</h4>
+            <h4 className="user-name">{state.user.name}</h4>
           </div>
         </div>
       </div>

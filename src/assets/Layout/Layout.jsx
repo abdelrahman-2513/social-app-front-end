@@ -1,4 +1,10 @@
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
+import { Suspense } from "react"; // Changed from useState to Suspense
 import Login from "../../pages/Login/Login";
 import Signup from "../../pages/Signup/Signup";
 import Loading from "../Loading/Loading";
@@ -8,50 +14,53 @@ import RightBar from "../../components/Right Bar/RightBar";
 import Nav from "../../components/Nav/Nav";
 import Profile from "../../pages/Profile/Prfile";
 import ChatBox from "../../pages/Chat Box/ChatBox";
-import UserProfile from "../../components/UserProfile/UserProfile";
+import { useUser } from "../../providers/user.context";
+import PageNotFound from "../../pages/Page Not Found/PageNotFound";
 
 function Layout() {
+  const { state } = useUser();
+
   // feed-------------------------------
   const Feed = () => {
     return (
       <>
-        <Nav />
-        <main>
-          <LeftBar />
-          <div className="container">
-            <Outlet />
-          </div>
-          <RightBar />
-        </main>
+        {state["loading"] ? (
+          <Loading />
+        ) : (
+          <>
+            <Nav />
+            <main>
+              <LeftBar />
+              <div className="container">
+                <Outlet />
+              </div>
+              <RightBar />
+            </main>
+          </>
+        )}
       </>
     );
   };
 
-  //  router----------------------------
-  let router = createBrowserRouter([
+  const ProtectedRoute = ({ element }) => {
+    return state.isAuthenticated ? element : <Navigate replace to="/login" />;
+  };
+
+  const routes = [
     {
       path: "/",
-      element: <Feed />,
+      element: <ProtectedRoute element={<Feed />} />,
       children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/profile",
-          element: <Profile />,
-        },
+        { path: "/", element: <ProtectedRoute element={<Home />} /> },
+        { path: "/profile", element: <ProtectedRoute element={<Profile />} /> },
         {
           path: "/profile/:id",
-          element: <Profile />,
+          element: <ProtectedRoute element={<Profile />} />,
         },
-        {
-          path: "/ChatBox",
-          element: <ChatBox />,
-        },
+        { path: "/ChatBox", element: <ProtectedRoute element={<ChatBox />} /> },
         {
           path: "/ChatBox/:id",
-          element: <ChatBox />,
+          element: <ProtectedRoute element={<ChatBox />} />,
         },
       ],
     },
@@ -59,16 +68,14 @@ function Layout() {
       path: "/login",
       element: <Login />,
     },
+    { path: "/signup", element: <Signup /> },
+    { path: "*", element: <PageNotFound /> }, // Wildcard route for 404 errors
+  ];
 
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-  ]);
   return (
-    <>
-      <RouterProvider router={router} fallbackElement={<Loading />} />
-    </>
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={createBrowserRouter(routes)} />
+    </Suspense>
   );
 }
 

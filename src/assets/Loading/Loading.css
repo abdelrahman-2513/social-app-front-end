@@ -1,9 +1,10 @@
 .sweet-loading {
-  width: 100vh;
+  width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
 }
 .loading span {
   background-color: var(--color-border) !important;
