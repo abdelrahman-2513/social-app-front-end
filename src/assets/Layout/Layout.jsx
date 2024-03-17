@@ -16,6 +16,7 @@ import Profile from "../../pages/Profile/Prfile";
 import ChatBox from "../../pages/Chat Box/ChatBox";
 import { useUser } from "../../providers/user.context";
 import PageNotFound from "../../pages/Page Not Found/PageNotFound";
+import Settings from "../../pages/Settings/Settings";
 
 function Layout() {
   const { state } = useUser();
@@ -61,6 +62,10 @@ function Layout() {
         {
           path: "/ChatBox/:id",
           element: <ProtectedRoute element={<ChatBox />} />,
+        },
+        {
+          path: "/mySettings",
+          element: <ProtectedRoute element={<Settings />} />,
         },
       ],
     },

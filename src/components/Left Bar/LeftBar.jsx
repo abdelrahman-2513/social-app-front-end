@@ -5,6 +5,7 @@ import {
   Inbox,
   MessageCode,
   Picture,
+  Settings,
   Text,
   TextCheck,
   Users,
@@ -71,6 +72,12 @@ function LeftBar() {
             <div className="nav-item">
               <Text />
               <h4>Message</h4>
+            </div>
+          </Link>
+          <Link to="/mySettings">
+            <div className="nav-item">
+              <Settings />
+              <h4>Settings</h4>
             </div>
           </Link>
         </div>
