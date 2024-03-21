@@ -11,6 +11,7 @@ const initialState = {
   isAuthenticated: false,
   error: "",
   loading: false,
+  accessDate: Date.now() - 18000000,
 };
 
 // Create a context for your user state

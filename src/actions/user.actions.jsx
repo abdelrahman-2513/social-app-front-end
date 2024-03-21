@@ -26,6 +26,7 @@ export const SignIn = (user, dispatch) => {
           user: res.data.user,
           refreshToken: res.data.refresh_token,
           accessToken: res.data.access_token,
+          accessDate: Date.now(),
         },
       });
       toast.success("Logged in successed!");

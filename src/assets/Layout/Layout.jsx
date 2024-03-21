@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
   Navigate,
 } from "react-router-dom";
-import { Suspense } from "react"; // Changed from useState to Suspense
+import { Suspense, useEffect } from "react"; // Changed from useState to Suspense
 import Login from "../../pages/Login/Login";
 import Signup from "../../pages/Signup/Signup";
 import Loading from "../Loading/Loading";
@@ -17,6 +17,7 @@ import ChatBox from "../../pages/Chat Box/ChatBox";
 import { useUser } from "../../providers/user.context";
 import PageNotFound from "../../pages/Page Not Found/PageNotFound";
 import Settings from "../../pages/Settings/Settings";
+import { Logout } from "../../actions/user.actions";
 
 function Layout() {
   const { state } = useUser();
@@ -44,6 +45,12 @@ function Layout() {
   };
 
   const ProtectedRoute = ({ element }) => {
+    const { state, dispatch } = useUser();
+
+    useEffect(() => {
+      if (Date.now() - 18000000 >= state.accessDate) Logout(dispatch);
+      console.log("still login");
+    }, [state.accessDate]);
     return state.isAuthenticated ? element : <Navigate replace to="/login" />;
   };
 

@@ -17,8 +17,8 @@ function Stories() {
       <UserStory />
       <Swiper style={{ width: "80%" }} slidesPerView={4} spaceBetween={15}>
         {storiesData.map((stor, i) => (
-          <SwiperSlide>
-            <div className="story" key={i}>
+          <SwiperSlide key={i}>
+            <div className="story">
               <div className="user">
                 <img src="./vite.svg" alt={`user-${i}`} />
               </div>

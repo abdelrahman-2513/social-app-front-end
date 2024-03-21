@@ -20,6 +20,7 @@ export const userReducer = (state, action) => {
         user: action.payload.user,
         userAccessToken: action.payload.accessToken,
         userRefreshToken: action.payload.refreshToken,
+        accessDate: action.payload.accessDate,
       };
     case USER_SIGNUP:
       return { ...state, loading: false };
@@ -32,6 +33,7 @@ export const userReducer = (state, action) => {
         userAccessToken: "",
         userRefreshToken: "",
         error: "",
+        accessDate: Date.now() - 18000000,
       };
     case USER_UPDATE_MYDATA:
       return {

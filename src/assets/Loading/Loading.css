@@ -9,3 +9,8 @@
 .loading span {
   background-color: var(--color-border) !important;
 }
+
+.inbox {
+  border-radius: 2rem;
+  margin: 1rem 1rem;
+}

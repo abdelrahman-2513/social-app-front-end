@@ -1,13 +1,19 @@
+import Loading from "../../assets/Loading/Loading";
+import { usePost } from "../../providers/post.context";
 import Feed from "./Feed";
 
 function Feeds() {
-  const feeds = [1, 2, 3, 4, 5];
-
+  const { state } = usePost();
+  const { posts } = state;
   return (
     <div className="feeds-container">
-      {feeds.map((fed) => {
-        return <Feed key={fed} />;
-      })}
+      {posts.length > 0 ? (
+        posts.map((post, i) => {
+          return <Feed key={i} post={post} />;
+        })
+      ) : (
+        <h3 className="no-post">No posts yet!</h3>
+      )}
     </div>
   );
 }

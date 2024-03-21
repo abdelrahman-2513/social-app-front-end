@@ -6,9 +6,9 @@ function FriendReq() {
     <div className="friend-requests">
       <h4>Friend Requests</h4>
       <div className="requests">
-        {requests.map((req) => {
+        {requests.map((req, i) => {
           return (
-            <div className="request">
+            <div className="request" key={i}>
               <Link to={`/profile/${req}`}>
                 <div className="user-info">
                   <img src="../vite.svg" alt="icon" />

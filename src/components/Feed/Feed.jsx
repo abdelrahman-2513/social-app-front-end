@@ -1,27 +1,79 @@
 import { useState } from "react";
 import "./Feeds.css";
-import { Comment, Heart, Share } from "react-flaticons";
+// Icons......................................................................
+import { Comment, Heart, MenuDotsVertical, Share } from "react-flaticons";
 import { Link } from "react-router-dom";
+
+// components..................................................................
 import Comments from "../Comment/Comments";
-function Feed() {
+
+// contexts ...................................................................
+import { useUser } from "../../providers/user.context";
+import { usePost } from "../../providers/post.context";
+
+// actions......................................................................
+import { DeletePost, UpdatePost } from "../../actions/post.actions";
+
+function Feed({ post }) {
   const [comment, setComment] = useState(false);
+  const [menu, setMenu] = useState(false);
+  const [content, setContent] = useState("");
+  const { state: userState } = useUser();
+  const { dispatch } = usePost();
   const handleComment = () => {
     setComment((comm) => !comm);
   };
+  const handleDeletePost = (e) => {
+    e.preventDefault();
+    DeletePost(dispatch, userState.userAccessToken, post.id);
+  };
+  const handleUpdatePost = (e) => {
+    e.preventDefault();
+    console.log(content);
+    UpdatePost(dispatch, userState.userAccessToken, { content }, post.id);
+  };
   return (
     <div className="feed-body">
-      <Link to="/profile/:id">
-        <div className="feed-header">
-          <img src="./vite.svg" alt="" />
-          <h4>User</h4>
+      <div className="feed-header">
+        <div className="user-header">
+          <Link to={`/profile/:${post.userId}`}>
+            <div className="user-data">
+              <img src={post.user.image} alt="" />
+              <h4>{post.user.name}</h4>
+            </div>
+          </Link>
+          {userState.user.id === post.userId && (
+            <div className="menu">
+              <h5
+                onClick={() => {
+                  setMenu((men) => !men);
+                }}
+              >
+                <MenuDotsVertical />
+              </h5>
+              {menu && (
+                <div className="menu-data">
+                  <h6 onClick={handleUpdatePost}>Update</h6>
+                  <h6 onClick={handleDeletePost}>Delete</h6>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      </Link>
+        <h6>{post.created_at.split("T")[0]}</h6>
+      </div>
+
       <div className="feed-mid">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora,
-          quas ex accusamus quo fuga est officia, vitae eligendi harum porro
-          veniam nemo saepe dicta nam, labore laborum facere laboriosam a?
-        </p>
+        {userState.user.id === post.userId ? (
+          <input
+            type="text"
+            placeholder={post.content}
+            className="post-content"
+            onChange={(e) => setContent(e.target.value)}
+          />
+        ) : (
+          <p>{post.content}</p>
+        )}
       </div>
       <div className="feed-footer">
         <div className="icon">

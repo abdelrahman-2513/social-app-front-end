@@ -16,9 +16,9 @@ function Message() {
       </div>
       <div className="border-div"></div>
       <div className="messages">
-        {messages.map((msg) => {
+        {messages.map((msg, i) => {
           return (
-            <Link to={`/ChatBox/${msg}`}>
+            <Link to={`/ChatBox/${msg}`} key={i}>
               <div className="message">
                 <img src="./vite.svg" alt="icon" />
                 <div className="message-data">

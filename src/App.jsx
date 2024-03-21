@@ -4,12 +4,15 @@ import Layout from "./assets/Layout/Layout";
 import { UserProvider, useUser } from "./providers/user.context";
 import { ToastContainer } from "react-toastify";
 import Loading from "./assets/Loading/Loading";
+import { PostProvider } from "./providers/post.context";
 
 function App() {
   return (
     <UserProvider>
-      <ToastContainer />
-      <Layout />
+      <PostProvider>
+        <Layout />
+        <ToastContainer />
+      </PostProvider>
     </UserProvider>
   );
 }
