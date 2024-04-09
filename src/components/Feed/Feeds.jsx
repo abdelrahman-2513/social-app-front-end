@@ -5,6 +5,7 @@ import Feed from "./Feed";
 function Feeds() {
   const { state } = usePost();
   const { posts } = state;
+  console.log(posts);
   return (
     <div className="feeds-container">
       {posts.length > 0 ? (

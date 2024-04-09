@@ -12,20 +12,33 @@ import {
 } from "react-flaticons";
 import { Link } from "react-router-dom";
 import "./LeftBar.css";
+import { useUser } from "../../providers/user.context";
+import { useUserFriend } from "../../providers/user.requests.friends";
+import { useEffect } from "react";
+import { getUserFriends } from "../../actions/user.actions";
 
-const userData = {
-  name: "Abdelrahman",
-  image: "./vite.svg",
-};
 function LeftBar() {
+  const { state } = useUser();
+  const { dispatch: reqDispatch } = useUserFriend();
+  useEffect(() => {
+    if (state.userAccessToken)
+      getUserFriends(state.userAccessToken, reqDispatch);
+  }, [state.userAccessToken]);
   return (
     <div className="left-bar">
       <div className="leftBar-container">
         <div className="menu">
           <Link to="/profile">
             <div className="leftBar-user">
-              <img src={userData.image} alt="icon" />
-              <h4>{userData.name}</h4>
+              <img
+                src={
+                  state.user.image === "unknown"
+                    ? "./unknown.jpg"
+                    : state.user.image
+                }
+                alt={`${state.user.name}-image`}
+              />
+              <h4>{state.user.name}</h4>
             </div>
           </Link>
           <Link to="/friends">

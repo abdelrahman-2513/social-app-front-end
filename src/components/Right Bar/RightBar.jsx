@@ -3,8 +3,19 @@ import "./RigthBar.css";
 // components .................................
 import FriendReq from "../FriendReq/FriendReq";
 import Message from "../Message/Message";
+import { useUser } from "../../providers/user.context";
+import { useEffect } from "react";
+import { userFriendRequests2 } from "../../actions/user.actions";
+import { useUserFriend } from "../../providers/user.requests.friends";
 
 function RightBar() {
+  const { state: userState } = useUser();
+  const { dispatch: requestsDispatch } = useUserFriend();
+
+  useEffect(() => {
+    if (userState.userAccessToken)
+      userFriendRequests2(userState.userAccessToken, requestsDispatch);
+  }, [userState.userAccessToken, requestsDispatch]);
   return (
     <div className="RightBar">
       <div className="rightBar-container">

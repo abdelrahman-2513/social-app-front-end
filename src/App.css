@@ -75,6 +75,10 @@ p {
   background: var(--color-red);
   color: white;
 }
+.btn-soft {
+  background: var(--color-card);
+  color: var(--color-soft);
+}
 main {
   display: grid;
   grid-template-columns: 18% 54% 23%;

@@ -3,5 +3,19 @@ export const USER_LOGIN = "USER_LOGIN";
 export const USER_SIGNUP = "USER_SIGNUP";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const USER_UPDATE_MYDATA = "USER_UPDATE_PASSWORD";
-export const USER_POST = "USER_POST";
 export const USER_ERROR = "USER_ERROR";
+export const USER_SEARCH = "USER_SEARCH";
+export const USER_FRIENDS = "USER_FRIENDS";
+export const USER_FRIEND_REQUESTS = "USER_FRIEND_REQUESTS";
+export const USER_REQUESTS_LOADING = "USER_REQUESTS_LOADING";
+export const USER_SEARCH_LOADING = "USER_SEARCH_LOADING";
+//user delete friend
+export const USER_REMOVE_FRIEND = "USER_REMOVE_FRIEND";
+
+// accept and dlete requests
+export const USER_ACCEPT_REQUEST = "USER_ACCEPT_REQUEST";
+export const USER_REMOVE_REQUEST = "USER_REMOVE_REQUEST";
+
+// sending friend request
+export const USER_SEND_REQUEST = "USER_SEND_REQUEST";
+export const USER_REMOVE_SEND_REQUEST = "USER_REMOVE_SEND_REQUEST";

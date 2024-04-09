@@ -11,7 +11,11 @@ const initialState = {
   isAuthenticated: false,
   error: "",
   loading: false,
+  loadingSearch: false,
+  loadingRequests: false,
   accessDate: Date.now() - 18000000,
+  navSearch: [],
+  userRequests: null,
 };
 
 // Create a context for your user state

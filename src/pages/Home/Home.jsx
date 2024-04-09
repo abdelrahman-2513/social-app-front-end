@@ -12,8 +12,8 @@ import { GetFeeds } from "../../actions/post.actions";
 import Loading from "../../assets/Loading/Loading";
 
 function Home() {
-  const { state: postState, dispatch } = usePost();
   const { state: userState } = useUser();
+  const { state: postState, dispatch } = usePost();
   const { loading } = postState;
 
   useEffect(() => {

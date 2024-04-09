@@ -18,7 +18,7 @@ export const postReducer = (state, action) => {
       return {
         ...state,
         posts: action.payload,
-        pageNumber: state.pageNumber + 1,
+        // pageNumber: state.pageNumber + 1,
         loading: false,
       };
     case CREATE_POST:

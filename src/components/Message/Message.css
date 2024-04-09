@@ -58,6 +58,7 @@
   flex-direction: column;
   flex: 1;
   gap: 20px;
+  min-height: 40vh;
 }
 .message {
   display: flex;
@@ -91,6 +92,9 @@
   border-radius: 50%;
   font-weight: bold;
   padding: 0.7rem;
+}
+.messages h6 {
+  margin: 10px auto;
 }
 @media (max-width: 1024px) {
   .message-top,

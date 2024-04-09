@@ -38,7 +38,14 @@ function Feed({ post }) {
         <div className="user-header">
           <Link to={`/profile/:${post.userId}`}>
             <div className="user-data">
-              <img src={post.user.image} alt="" />
+              <img
+                src={
+                  post.user.image === "unknown"
+                    ? "./unknown.jpg"
+                    : post.user.image
+                }
+                alt={`${post.user.name}-image`}
+              />
               <h4>{post.user.name}</h4>
             </div>
           </Link>
