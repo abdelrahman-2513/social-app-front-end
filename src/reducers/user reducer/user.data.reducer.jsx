@@ -3,11 +3,11 @@ import {
   USER_REQUEST,
   USER_FRIEND_REQUESTS,
   USER_ACCEPT_REQUEST,
-  USER_REMOVE_FRIEND,
   USER_FRIENDS,
   USER_SEND_REQUEST,
   USER_REMOVE_SEND_REQUEST,
   USER_REMOVE_REQUEST,
+  USER_GET_CONVERSATIONS,
 } from "../../constants/user.constants";
 
 export const userRequestsReducer = (state, action) => {
@@ -20,7 +20,7 @@ export const userRequestsReducer = (state, action) => {
         ...state,
         loading: false,
         friendRequestsToUser: action.payload.toUser,
-        friendRequestsFromoUser: action.payload.fromUser,
+        friendRequestsFromUser: action.payload.fromUser,
       };
     case USER_FRIENDS:
       return {
@@ -68,6 +68,12 @@ export const userRequestsReducer = (state, action) => {
         ...state,
         loading: false,
         friendRequestsToUser: remaningRequests2,
+      };
+    case USER_GET_CONVERSATIONS:
+      return {
+        ...state,
+        loading: false,
+        conversations: action.payload,
       };
 
     case USER_ERROR:

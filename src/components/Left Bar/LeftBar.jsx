@@ -4,6 +4,7 @@ import {
   Film,
   Inbox,
   MessageCode,
+  PeoplePoll,
   Picture,
   Settings,
   Text,
@@ -47,22 +48,10 @@ function LeftBar() {
               <h4>Friends</h4>
             </div>
           </Link>
-          <Link to="/friends">
+          <Link to="/groups">
             <div className="nav-item">
-              <Users />
-              <h4>Friends</h4>
-            </div>
-          </Link>
-          <Link to="/friends">
-            <div className="nav-item">
-              <Users />
-              <h4>Friends</h4>
-            </div>
-          </Link>
-          <Link to="/friends">
-            <div className="nav-item">
-              <Users />
-              <h4>Friends</h4>
+              <PeoplePoll />
+              <h4>Groups</h4>
             </div>
           </Link>
         </div>

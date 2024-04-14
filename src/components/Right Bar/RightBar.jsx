@@ -5,7 +5,10 @@ import FriendReq from "../FriendReq/FriendReq";
 import Message from "../Message/Message";
 import { useUser } from "../../providers/user.context";
 import { useEffect } from "react";
-import { userFriendRequests2 } from "../../actions/user.actions";
+import {
+  getMyConversation,
+  userFriendRequests2,
+} from "../../actions/user.actions";
 import { useUserFriend } from "../../providers/user.requests.friends";
 
 function RightBar() {
@@ -15,6 +18,7 @@ function RightBar() {
   useEffect(() => {
     if (userState.userAccessToken)
       userFriendRequests2(userState.userAccessToken, requestsDispatch);
+    getMyConversation(requestsDispatch, userState.userAccessToken);
   }, [userState.userAccessToken, requestsDispatch]);
   return (
     <div className="RightBar">

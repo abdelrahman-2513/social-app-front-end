@@ -8,6 +8,7 @@ import { SearchUsers } from "../../actions/user.actions";
 import AddFriend from "../AddFriend/AddFriend";
 import { toast } from "react-toastify";
 import axios from "axios";
+import ImagePreview from "../ImagePreview/imagePreview";
 
 function Nav() {
   const { state, dispatch } = useUser();
@@ -78,13 +79,13 @@ function Nav() {
           </Link>
           <DarkMode />
           <div className="nav-user">
-            <img
-              src={
+            <ImagePreview
+              imageUrl={
                 state.user.image === "unknown"
                   ? "./unknown.jpg"
                   : state.user.image
               }
-              alt={`${state.user.name}-image`}
+              className={true}
             />
             <h4 className="user-name">{state.user.name}</h4>
           </div>

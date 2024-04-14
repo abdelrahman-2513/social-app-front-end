@@ -8,6 +8,7 @@ const initialState = {
   friendRequestsToUser: [],
   friendRequestsFromUser: [],
   friends: [],
+  conversations: [],
 };
 
 // Create a context for your user state

@@ -98,11 +98,7 @@ nav {
   align-items: center;
   gap: 20px;
 }
-.nav-user img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
+
 .nav-user h4 {
   color: var(--color-primary);
 }

@@ -12,13 +12,10 @@ function FriendReq() {
   const { state: requestState, dispatch: requestsDispatch } = useUserFriend();
   const { userAccessToken } = state;
   const { loading: loadingRequests, friendRequestsToUser } = requestState;
-
   const acceptRequest = (reqId) => {
-    console.log(reqId, userAccessToken);
     userAcceptRequest(userAccessToken, requestsDispatch, reqId);
   };
   const deleteRequest = (reqId) => {
-    console.log(reqId);
     deleteRecievedRequest(userAccessToken, requestsDispatch, reqId);
   };
   return (
@@ -36,7 +33,14 @@ function FriendReq() {
                     <div className="request" key={i}>
                       <Link to={`/profile/${req.fromUserId}`}>
                         <div className="user-info">
-                          <img src="../vite.svg" alt="icon" />
+                          <img
+                            src={
+                              req.fromUser.image === "unknown"
+                                ? "./unknown.jpg"
+                                : req.fromUser.image
+                            }
+                            alt={`${req.fromUser.name.name}-image`}
+                          />
                           <h5>{req.fromUser.name}</h5>
                         </div>
                       </Link>

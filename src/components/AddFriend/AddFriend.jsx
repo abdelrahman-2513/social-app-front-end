@@ -18,7 +18,7 @@ function AddFriend({ friend }) {
   const { friendRequestsToUser, friendRequestsFromUser, friends } =
     userFriendsState;
   const { user, userAccessToken } = state;
-
+  console.log(friendRequestsFromUser);
   const handleAddFriend = (e) => {
     e.preventDefault();
     sendRequest(userAccessToken, reqDispatch, user.id, friend.id);
@@ -33,14 +33,13 @@ function AddFriend({ friend }) {
   };
   const handleAcceptRequest = (friend) => {
     console.log(friend);
-    // removeFriend(userAccessToken, dispatch, friendID);
   };
   return (
     <div className="user-card">
       <Link to={`/profile/${friend.id}`}>
         <div className="user-info">
           <img
-            src={friend.image === "unknown" ? "./unknown.jpg" : friend.image}
+            src={friend.image === "unknown" ? "/unknown.jpg" : friend.image}
             alt={`${friend.name}-profile-image`}
           />
           <h5>{friend.name}</h5>

@@ -18,6 +18,7 @@ import { useUser } from "../../providers/user.context";
 import PageNotFound from "../../pages/Page Not Found/PageNotFound";
 import Settings from "../../pages/Settings/Settings";
 import { Logout } from "../../actions/user.actions";
+import Friends from "../../pages/Friends/Friends";
 
 function Layout() {
   const { state } = useUser();
@@ -49,7 +50,6 @@ function Layout() {
 
     useEffect(() => {
       if (Date.now() - 18000000 >= state.accessDate) Logout(dispatch);
-      console.log("still login");
     }, [state.accessDate]);
     return state.isAuthenticated ? element : <Navigate replace to="/login" />;
   };
@@ -73,6 +73,10 @@ function Layout() {
         {
           path: "/mySettings",
           element: <ProtectedRoute element={<Settings />} />,
+        },
+        {
+          path: "/friends",
+          element: <ProtectedRoute element={<Friends />} />,
         },
       ],
     },

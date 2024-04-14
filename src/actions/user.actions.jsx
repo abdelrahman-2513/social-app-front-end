@@ -4,6 +4,7 @@ import {
   USER_ERROR,
   USER_FRIENDS,
   USER_FRIEND_REQUESTS,
+  USER_GET_CONVERSATIONS,
   USER_LOGIN,
   USER_LOGOUT,
   USER_REMOVE_FRIEND,
@@ -11,6 +12,7 @@ import {
   USER_REMOVE_SEND_REQUEST,
   USER_REQUEST,
   USER_REQUESTS_LOADING,
+  USER_RESPONSE,
   USER_SEARCH,
   USER_SEARCH_LOADING,
   USER_SEND_REQUEST,
@@ -30,7 +32,6 @@ export const SignIn = (user, dispatch) => {
   axios
     .post("http://localhost:3000/auth/login", user)
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_LOGIN,
         payload: {
@@ -59,7 +60,6 @@ export const SignUp = (user, dispatch) => {
   axios
     .post("http://localhost:3000/auth/signup", user)
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_SIGNUP,
       });
@@ -97,7 +97,6 @@ export const UpdateMe = async (userData, accessToken, dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_UPDATE_MYDATA,
         payload: { user: res.data },
@@ -124,7 +123,6 @@ export const UpdatePassword = async (userData, accessToken, dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_LOGOUT,
       });
@@ -152,9 +150,30 @@ export const SearchUsers = (name, accessToken, dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_SEARCH,
+      });
+      return res.data;
+    })
+    .catch((err) => {
+      dispatch({ type: USER_ERROR, payload: err.message });
+      toast.error(err.response.data.message);
+    });
+};
+
+export const getUserById = (accessToken, dispatch, userId) => {
+  console.log("fromSearch");
+  dispatch({ type: USER_REQUEST });
+  axios
+    .get(`http://localhost:3000/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: USER_RESPONSE,
       });
       return res.data;
     })
@@ -177,7 +196,6 @@ export const getUserFriends = (accessToken, dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_FRIENDS,
         payload: res.data,
@@ -206,7 +224,6 @@ export const sendRequest = (accessToken, dispatch, fromId, toId) => {
       }
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_SEND_REQUEST,
         payload: { fromUserId: fromId, toUserId: toId },
@@ -235,7 +252,6 @@ export const cancelRequest = (accessToken, dispatch, friendId) => {
       }
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: USER_REMOVE_SEND_REQUEST, payload: friendId });
       toast.success("Request removed!");
     })
@@ -261,7 +277,6 @@ export const deleteRecievedRequest = (accessToken, dispatch, reqId) => {
       }
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: USER_REMOVE_REQUEST, payload: reqId });
       toast.success("Request deleted!");
     })
@@ -313,7 +328,6 @@ export const userAcceptRequest = (accessToken, dispatch, reqId) => {
       }
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: USER_ACCEPT_REQUEST,
         payload: reqId,
@@ -343,7 +357,6 @@ export const removeFriend = (accessToken, dispatch, friendId) => {
       }
     )
     .then((res) => {
-      console.log(res);
       dispatch({
         type: USER_REMOVE_FRIEND,
         payload: friendId,
@@ -352,5 +365,24 @@ export const removeFriend = (accessToken, dispatch, friendId) => {
     .catch((err) => {
       dispatch({ type: USER_ERROR, payload: err.message });
       toast.error(err.response.data.message);
+    });
+};
+
+/** */
+export const getMyConversation = (dispatch, accessToken) => {
+  dispatch({ type: USER_REQUEST });
+  axios
+    .get(`${SERVER_URL}conversation/myConversations`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((res) => {
+      dispatch({ type: USER_GET_CONVERSATIONS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: USER_ERROR, payload: err.message });
+
+      toast.error("Cannot get user Conversations now!");
     });
 };

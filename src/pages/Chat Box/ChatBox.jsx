@@ -1,8 +1,11 @@
 import "./ChatBox.css";
 import { ArrowAltRight, ArrowAltToTop, ArrowUp } from "react-flaticons";
 import Stories from "../../components/Stories/Stories";
+import { useParams } from "react-router-dom";
 
 function ChatBox() {
+  const { id } = useParams();
+  console.log(id);
   return (
     <>
       <Stories />

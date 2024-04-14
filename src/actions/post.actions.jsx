@@ -19,11 +19,9 @@ export const GetFeeds = (dispatch, accessToken, pageNumber) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: GET_POSTS, payload: res.data });
     })
     .catch((err) => {
-      console.log(err);
       toast.error(err.response.data.message);
     });
 };
@@ -38,11 +36,9 @@ export const GetUserPosts = (dispatch, accessToken, userId) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: GET_POSTS, payload: res.data });
     })
     .catch((err) => {
-      console.log(err);
       toast.error(err.response.data.message);
     });
 };
@@ -60,12 +56,10 @@ export const CreatePost = (dispatch, accessToken, postData) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch({ type: CREATE_POST, payload: res.data });
         toast.success("Post created!");
       })
       .catch((err) => {
-        console.log(err);
         toast.error(err.response.data.message);
       });
   }
@@ -81,12 +75,10 @@ export const UpdatePost = (dispatch, accessToken, postData, postId) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       toast.success("Post Updated!");
       dispatch({ type: UPDATE_POST, payload: res.data });
     })
     .catch((err) => {
-      console.log(err);
       toast.error(err.response.data.message);
     });
 };
@@ -101,12 +93,10 @@ export const DeletePost = (dispatch, accessToken, postId) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       dispatch({ type: DELETE_POST, payload: postId });
       toast.warn("Post Deleted!");
     })
     .catch((err) => {
-      console.log(err);
       toast.error(err.response.data.message);
     });
 };

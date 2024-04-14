@@ -1,12 +1,15 @@
 import "./Message.css";
 import { MessageCode, Search } from "react-flaticons";
 import { Link } from "react-router-dom";
-import { useUser } from "../../providers/user.context";
 import { useUserFriend } from "../../providers/user.requests.friends";
+import { useEffect } from "react";
+import { useUser } from "../../providers/user.context";
+import axios from "axios";
+import { SERVER_URL } from "../../constants/server.constants";
 
 function Message() {
-  // const messages = [1, 2, 3, 4, 5];
   const { state: reqState } = useUserFriend();
+  const { conversations } = reqState;
   return (
     <div className="message-container">
       <div className="message-top">
@@ -19,23 +22,22 @@ function Message() {
       </div>
       <div className="border-div"></div>
       <div className="messages">
-        {reqState.friends.length > 0 ? (
+        {conversations.length > 0 ? (
           <>
-            {reqState.friends.map((friend, i) => {
-              console.log(friend);
+            {conversations.map((conv, i) => {
               return (
-                <Link to={`/ChatBox/${friend.id}`} key={i}>
+                <Link to={`/ChatBox/${conv.id}`} key={i}>
                   <div className="message">
                     <img
                       src={
-                        friend.image === "unknown"
-                          ? "./unknown.jpg"
-                          : friend.image
+                        conv.participants[0].image === "unknown"
+                          ? "/unknown.jpg"
+                          : conv.participants[0].image
                       }
-                      alt={`${friend.name}-image`}
+                      alt={`${conv.participants[0].name}-image`}
                     />
                     <div className="message-data">
-                      <h5>{friend.name}</h5>
+                      <h5>{conv.participants[0].name}</h5>
                       <p>Lets talk!</p>
                     </div>
                   </div>

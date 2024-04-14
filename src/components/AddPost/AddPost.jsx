@@ -18,7 +18,14 @@ function AddPost() {
   return (
     <form className="post-form">
       <div className="form-top">
-        <img src="./vite.svg" alt="userPhoto" />
+        <img
+          src={
+            userState.user.image === "unknown"
+              ? "./unknown.jpg"
+              : `${userState.user.image}`
+          }
+          alt={`${userState.user.name} profile-photo`}
+        />
 
         <input
           type="text"

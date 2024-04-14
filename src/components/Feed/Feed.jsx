@@ -29,7 +29,6 @@ function Feed({ post }) {
   };
   const handleUpdatePost = (e) => {
     e.preventDefault();
-    console.log(content);
     UpdatePost(dispatch, userState.userAccessToken, { content }, post.id);
   };
   return (

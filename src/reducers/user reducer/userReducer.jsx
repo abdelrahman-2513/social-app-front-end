@@ -12,6 +12,7 @@ import {
   USER_SEARCH_LOADING,
   USER_ACCEPT_REQUEST,
   USER_REMOVE_FRIEND,
+  USER_RESPONSE,
 } from "../../constants/user.constants";
 
 export const userReducer = (state, action) => {
@@ -36,6 +37,8 @@ export const userReducer = (state, action) => {
       return { ...state, loading: false };
     case USER_SEARCH:
       return { ...state, loadingSearch: false, navSearch: action.payload };
+    case USER_RESPONSE:
+      return { ...state, loading: false };
     case USER_LOGOUT:
       return {
         ...state,
@@ -74,6 +77,7 @@ export const userReducer = (state, action) => {
       return {
         ...state,
         loadingRequests: false,
+        loading: false,
       };
     case USER_ERROR:
       return { ...state, loading: false, error: action.payload };

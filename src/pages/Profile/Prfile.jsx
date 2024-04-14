@@ -17,11 +17,13 @@ function Profile() {
     console.log(id);
     if (!id)
       GetUserPosts(dispatch, userState.userAccessToken, userState.user.id);
-    else GetUserPosts(dispatch, userState.userAccessToken, id);
+    else {
+      GetUserPosts(dispatch, userState.userAccessToken, id);
+    }
   }, [userState.userAccessToken, id]);
   return (
     <div className="profile">
-      <UserProfile />
+      <UserProfile friend={Number(id)} />
       {!id && <AddPost />}
       <Feeds />
     </div>

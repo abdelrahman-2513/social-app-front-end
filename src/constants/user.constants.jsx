@@ -9,6 +9,7 @@ export const USER_FRIENDS = "USER_FRIENDS";
 export const USER_FRIEND_REQUESTS = "USER_FRIEND_REQUESTS";
 export const USER_REQUESTS_LOADING = "USER_REQUESTS_LOADING";
 export const USER_SEARCH_LOADING = "USER_SEARCH_LOADING";
+export const USER_RESPONSE = "USER_RESPONSE";
 //user delete friend
 export const USER_REMOVE_FRIEND = "USER_REMOVE_FRIEND";
 
@@ -19,3 +20,6 @@ export const USER_REMOVE_REQUEST = "USER_REMOVE_REQUEST";
 // sending friend request
 export const USER_SEND_REQUEST = "USER_SEND_REQUEST";
 export const USER_REMOVE_SEND_REQUEST = "USER_REMOVE_SEND_REQUEST";
+
+// user Conversations
+export const USER_GET_CONVERSATIONS = "USER_GET_CONVERSATIONS";
