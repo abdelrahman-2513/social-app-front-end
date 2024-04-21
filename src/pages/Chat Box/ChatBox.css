@@ -30,6 +30,19 @@
   overflow: auto;
   height: 200px;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.chat-box .chat-mid .helper-messages {
+  display: grid;
+  position: absolute;
+  bottom: 25%;
+  width: 90%;
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+  column-gap: 5px;
+  row-gap: 5px;
 }
 .chat-box .chat-mid::-webkit-scrollbar {
   display: none;
@@ -58,10 +71,10 @@
 .chat-box .chat-box-bottom form input::placeholder {
   color: var(--color-soft);
 }
-.chat-box-top .btn-red {
+.chat-box-top .btn-soft {
   cursor: pointer;
   border: 0px;
-  border-radius: 50%;
+  border-radius: 5px;
   font-weight: bold;
   padding: 0.7rem;
 }

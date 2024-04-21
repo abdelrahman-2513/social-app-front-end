@@ -1,36 +1,121 @@
 import "./ChatBox.css";
-import { ArrowAltRight, ArrowAltToTop, ArrowUp } from "react-flaticons";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { ArrowUp } from "react-flaticons";
+import axios from "axios";
+import io from "socket.io-client";
+// Components ---------------------------------------------------------------------------
 import Stories from "../../components/Stories/Stories";
-import { useParams } from "react-router-dom";
+import Loading from "../../assets/Loading/Loading";
+
+// Providers -----------------------------------------------------------------------------
+import { useUserFriend } from "../../providers/user.requests.friends";
+import { useUser } from "../../providers/user.context";
+
+// Constants -----------------------------------------------------------------------------
+import { SERVER_URL } from "../../constants/server.constants";
+import { toast } from "react-toastify";
+import ChatboxMessages from "../../components/ChatBox Messages/ChatboxMessages";
+import NewChat from "../../components/NewChatMessage/NewChat";
+const socket = io("http://localhost:3000");
 
 function ChatBox() {
+  const [messages, setMessages] = useState([]);
+  const [chatData, setChatData] = useState({});
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  console.log(id);
+  const { state: reqState, dispatch: reqDispatch } = useUserFriend();
+  const { state: userState, dispatch } = useUser();
+  const { conversations } = reqState;
+  const { userAccessToken: AT, user: me } = userState;
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${SERVER_URL}message/conversationMessages/${id}`, {
+        headers: {
+          Authorization: `Bearer ${AT}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setMessages(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err);
+        setLoading(false);
+      });
+    conversations.forEach((conv) => {
+      if (conv.id == id) {
+        setChatData(conv);
+      }
+    });
+    setLoading(false);
+  }, [id, AT, conversations, chatData]);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("from webSocket");
+      socket.emit("joinConversation", `${id}`);
+    });
+    socket.on("newMessage", (message) => {
+      console.log(message);
+      setMessages([...messages, message]);
+    });
+    return () => {
+      socket.off("newMessage");
+      socket.emit("leaveConversation", `${id}`);
+    };
+  }, [id]);
   return (
     <>
       <Stories />
-      <div className="chat-box">
-        <div className="chat-box-top">
-          <div className="chat-user-info">
-            <img src="../vite.svg" alt="profile-photo" />
-            <div className="user-name">
-              <h3>User-name</h3>
-            </div>
+      {!loading ? (
+        <div className="chat-box">
+          <div className="chat-box-top">
+            {chatData.hasOwnProperty("participants") && (
+              <Link to={`/profile/${chatData.participants[0].id}`}>
+                <div className="chat-user-info">
+                  <img
+                    src={
+                      chatData.participants[0].image === "unknown"
+                        ? "/unknown.jpg"
+                        : chatData.participants[0].image
+                    }
+                    alt={`${chatData.participants[0].name}-image`}
+                  />
+                  <div className="user-name">
+                    <h3>{chatData.participants[0].name}</h3>
+                  </div>
+                </div>
+              </Link>
+            )}
+            <Link to={"/"}>
+              <button className=" btn-soft">Close</button>
+            </Link>
           </div>
-          <button className=" btn-red">X</button>
+          <div className="chat-mid">
+            {messages.length > 0 ? (
+              <ChatboxMessages messages={messages} />
+            ) : (
+              <div className="helper-messages">
+                <NewChat message={"Say Hello 👋"} socket={socket} />
+                <NewChat message={"Say How are you?"} socket={socket} />
+              </div>
+            )}
+          </div>
+          <div className="chat-box-bottom">
+            <form action="#">
+              <input type="text" name="content" placeholder="Write Something" />
+              <button className="btn btn- btn-primary">
+                <ArrowUp />
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="chat-mid">
-          <h4>Enter your message</h4>
-        </div>
-        <div className="chat-box-bottom">
-          <form action="#">
-            <input type="text" name="content" placeholder="Write Something" />
-            <button className="btn btn- btn-primary">
-              <ArrowUp />
-            </button>
-          </form>
-        </div>
-      </div>
+      ) : (
+        <Loading loading={loading} />
+      )}
     </>
   );
 }
