@@ -1,7 +1,7 @@
 import "./ChatBox.css";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowUp } from "react-flaticons";
+import { ArrowDown, ArrowUp } from "react-flaticons";
 import axios from "axios";
 import io from "socket.io-client";
 // Components ---------------------------------------------------------------------------
@@ -17,6 +17,7 @@ import { SERVER_URL } from "../../constants/server.constants";
 import { toast } from "react-toastify";
 import ChatboxMessages from "../../components/ChatBox Messages/ChatboxMessages";
 import NewChat from "../../components/NewChatMessage/NewChat";
+import AddMessage from "../../components/AddMessage/AddMessage";
 const socket = io("http://localhost:3000");
 
 function ChatBox() {
@@ -54,19 +55,31 @@ function ChatBox() {
     setLoading(false);
   }, [id, AT, conversations, chatData]);
   useEffect(() => {
+    console.log("from useEffect");
     socket.on("connect", () => {
       console.log("from webSocket");
-      socket.emit("joinConversation", `${id}`);
     });
-    socket.on("newMessage", (message) => {
-      console.log(message);
-      setMessages([...messages, message]);
-    });
+    socket.emit("joinConversation", `${id}`);
+
     return () => {
-      socket.off("newMessage");
+      // socket.off("newMessage");
       socket.emit("leaveConversation", `${id}`);
     };
   }, [id]);
+  useEffect(() => {
+    console.log("from hearing message");
+
+    socket.on("newMessage", (message) => {
+      console.log(message);
+      setMessages((prevMessages) => [message, ...prevMessages]);
+    });
+
+    // Clean up event listener
+    return () => {
+      socket.off("newMessage");
+    };
+  }, []);
+
   return (
     <>
       <Stories />
@@ -95,22 +108,19 @@ function ChatBox() {
             </Link>
           </div>
           <div className="chat-mid">
-            {messages.length > 0 ? (
-              <ChatboxMessages messages={messages} />
-            ) : (
-              <div className="helper-messages">
-                <NewChat message={"Say Hello 👋"} socket={socket} />
-                <NewChat message={"Say How are you?"} socket={socket} />
-              </div>
-            )}
+            <>
+              {messages.length > 0 ? (
+                <ChatboxMessages messages={messages} />
+              ) : (
+                <div className="helper-messages">
+                  <NewChat message={"Say Hello 👋"} socket={socket} />
+                  <NewChat message={"Say How are you?"} socket={socket} />
+                </div>
+              )}
+            </>
           </div>
           <div className="chat-box-bottom">
-            <form action="#">
-              <input type="text" name="content" placeholder="Write Something" />
-              <button className="btn btn- btn-primary">
-                <ArrowUp />
-              </button>
-            </form>
+            <AddMessage socket={socket} />
           </div>
         </div>
       ) : (

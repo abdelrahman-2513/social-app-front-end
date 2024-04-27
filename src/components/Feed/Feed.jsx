@@ -35,7 +35,7 @@ function Feed({ post }) {
     <div className="feed-body">
       <div className="feed-header">
         <div className="user-header">
-          <Link to={`/profile/:${post.userId}`}>
+          <Link to={`/profile/${post.userId}`}>
             <div className="user-data">
               <img
                 src={

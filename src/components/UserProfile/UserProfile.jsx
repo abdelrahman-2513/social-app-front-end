@@ -36,11 +36,28 @@ function UserProfile({ friend }) {
   };
   const copyLink = (e) => {
     // e.preventDefault();
-    toast.success("Copied To Clipboard");
+    if (friend)
+      navigator.clipboard
+        .writeText(`${window.location.host}/profile/${friend}`)
+        .then((res) => {
+          toast.success("Copied To Clipboard");
+        })
+        .catch((err) => {
+          toast.error("URL not found");
+        });
+    else
+      navigator.clipboard
+        .writeText(`${window.location.host}/profile/${me.id}`)
+        .then((res) => {
+          toast.success("Copied To Clipboard");
+        })
+        .catch((err) => {
+          toast.error("URL not found");
+        });
   };
   useEffect(() => {
     setloading(true);
-    if (friend) {
+    if (friend && Number(friend) !== me.id) {
       axios
         .get(`http://localhost:3000/user/${friend}`, {
           headers: {
@@ -59,7 +76,7 @@ function UserProfile({ friend }) {
         });
     }
     setloading(false);
-  }, [userAccessToken, friend]);
+  }, [userAccessToken, friend, me.id]);
   return (
     <>
       {!loading ? (
@@ -72,7 +89,7 @@ function UserProfile({ friend }) {
           </div>
 
           <div className="user-info">
-            {friend ? (
+            {friend && Number(friend) !== me.id ? (
               <>
                 <ImagePreview
                   imageUrl={
@@ -94,7 +111,7 @@ function UserProfile({ friend }) {
               </>
             )}
             <div className="profile-btns">
-              {friend ? (
+              {friend && Number(friend) !== me.id ? (
                 <>
                   {friends.some((person) => person.id === user.id) ? (
                     <button
@@ -131,14 +148,6 @@ function UserProfile({ friend }) {
                       <Plus />
                     </button>
                   )}
-                  <CopyToClipboard
-                    text={window.location.href}
-                    onCopy={copyLink}
-                  >
-                    <button className="btn">
-                      <LinkAlt />
-                    </button>
-                  </CopyToClipboard>
                 </>
               ) : (
                 <button className="btn" onClick={copyLink}>

@@ -20,7 +20,7 @@ function Stories() {
           <SwiperSlide key={i}>
             <div className="story">
               <div className="user">
-                <img src="./vite.svg" alt={`user-${i}`} />
+                <img src="/vite.svg" alt={`user-${i}`} />
               </div>
               <img src={stor} alt="story-data" />
               <h4>{`User-${i}`}</h4>

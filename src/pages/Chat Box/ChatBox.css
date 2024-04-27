@@ -27,7 +27,6 @@
   border-radius: 50%;
 }
 .chat-box .chat-mid {
-  overflow: auto;
   height: 200px;
   padding: 1rem;
   display: flex;
@@ -44,9 +43,9 @@
   column-gap: 5px;
   row-gap: 5px;
 }
-.chat-box .chat-mid::-webkit-scrollbar {
+/* .chat-box .chat-mid::-webkit-scrollbar {
   display: none;
-}
+} */
 .chat-box .chat-box-bottom {
   padding: 1rem;
   width: 100%;
