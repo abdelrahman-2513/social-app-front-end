@@ -4,7 +4,6 @@ function ChatboxMessage({ message }) {
   const { state } = useUser();
   const { user } = state;
 
-  console.log(message);
   return (
     <div
       className={message.user.id === user.id ? "message my-message" : "message"}

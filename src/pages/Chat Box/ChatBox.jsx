@@ -1,5 +1,6 @@
 import "./ChatBox.css";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { Link, useParams } from "react-router-dom";
 import { ArrowDown, ArrowUp } from "react-flaticons";
 import axios from "axios";
@@ -24,6 +25,7 @@ function ChatBox() {
   const [messages, setMessages] = useState([]);
   const [chatData, setChatData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const { id } = useParams();
   const { state: reqState, dispatch: reqDispatch } = useUserFriend();
   const { state: userState, dispatch } = useUser();
@@ -31,29 +33,35 @@ function ChatBox() {
   const { userAccessToken: AT, user: me } = userState;
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${SERVER_URL}message/conversationMessages/${id}`, {
-        headers: {
-          Authorization: `Bearer ${AT}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setMessages(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err);
-        setLoading(false);
+    if (messages.length === 0) {
+      setLoading(true);
+      axios
+        .get(
+          `${SERVER_URL}message/conversationMessages/${id}?page=${1}&pageSize=${10}`,
+          {
+            headers: {
+              Authorization: `Bearer ${AT}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          setMessages(res.data);
+          setLoading(false);
+          setPage((pg) => (pg === 1 ? pg + 1 : pg));
+        })
+        .catch((err) => {
+          toast.error(err);
+          setLoading(false);
+        });
+      conversations.forEach((conv) => {
+        if (conv.id == id) {
+          setChatData(conv);
+        }
       });
-    conversations.forEach((conv) => {
-      if (conv.id == id) {
-        setChatData(conv);
-      }
-    });
-    setLoading(false);
-  }, [id, AT, conversations, chatData]);
+      setLoading(false);
+    }
+  }, [id, AT, conversations, chatData, messages]);
   useEffect(() => {
     console.log("from useEffect");
     socket.on("connect", () => {
@@ -110,7 +118,12 @@ function ChatBox() {
           <div className="chat-mid">
             <>
               {messages.length > 0 ? (
-                <ChatboxMessages messages={messages} />
+                <ChatboxMessages
+                  messages={messages}
+                  setMessages={setMessages}
+                  page={page}
+                  setPage={setPage}
+                />
               ) : (
                 <div className="helper-messages">
                   <NewChat message={"Say Hello 👋"} socket={socket} />

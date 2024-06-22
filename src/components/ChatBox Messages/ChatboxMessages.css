@@ -34,3 +34,7 @@
 .my-message h5 {
   color: var(--color-soft);
 }
+.fetch-ref {
+  padding: 2px;
+  margin: 1px auto;
+}
